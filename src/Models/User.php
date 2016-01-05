@@ -61,11 +61,11 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      *
      * @param string $locale
      *
-     * @return null
+     * @return string
      */
     public function uri($locale = null)
     {
-        return;
+        return '/';
     }
 
     /**
@@ -144,7 +144,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             return true;
         }
 
-        return in_array($group, $this->groups->lists('name')->all());
+        return in_array($group, $this->groups->pluck('name')->all());
     }
 
     /**
