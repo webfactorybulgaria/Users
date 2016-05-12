@@ -20,7 +20,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      *
      * @return mixed Model or false on error during save
      */
-    public function create(array $data)
+    public function create(array $data, array $syncTables = [])
     {
         $model = $this->model;
 
@@ -47,7 +47,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      *
      * @return bool
      */
-    public function update(array $data)
+    public function update(array $data, array $syncTables = [])
     {
         $user = $this->model->find($data['id']);
 
