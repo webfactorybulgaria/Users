@@ -16,6 +16,19 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * List models.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $models = $this->repository->all([], true);
+        app('JavaScript')->put('models', $models);
+
+        return view('users::admin.index');
+    }
+
+    /**
      * Create form for a new resource.
      *
      * @return \Illuminate\View\View
@@ -23,10 +36,11 @@ class AdminController extends BaseAdminController
     public function create()
     {
         $model = $this->repository->getModel();
-        $selectedGroups = [];
+        $permissions = [];
+        $selectedRoles = [];
 
-        return view('core::admin.create')
-            ->with(compact('model', 'selectedGroups'));
+        return view('users::admin.create')
+            ->with(compact('model', 'permissions', 'selectedRoles'));
     }
 
     /**
@@ -38,14 +52,14 @@ class AdminController extends BaseAdminController
      */
     public function edit(User $user)
     {
-        $permissions = $user->permissions;
-        $selectedGroups = $user->groups->getDictionary();
+        $permissions = $user->permissions()->pluck('name')->all();
+        $selectedRoles = $user->roles()->pluck('id')->all();
 
-        return view('core::admin.edit')
+        return view('users::admin.edit')
             ->with([
-                'model'          => $user,
-                'permissions'    => $permissions,
-                'selectedGroups' => $selectedGroups,
+                'model'         => $user,
+                'permissions'   => $permissions,
+                'selectedRoles' => $selectedRoles,
             ]);
     }
 
@@ -58,9 +72,9 @@ class AdminController extends BaseAdminController
      */
     public function store(FormRequest $request)
     {
-        $model = $this->repository->create($request->all());
+        $user = $this->repository->create($request->all());
 
-        return $this->redirect($request, $model);
+        return $this->redirect($request, $user);
     }
 
     /**

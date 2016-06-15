@@ -22,19 +22,18 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      */
     public function create(array $data, array $syncTables = [])
     {
-        $model = $this->model;
-
-        $userData = array_except($data, ['_method', '_token', 'id', 'exit', 'groups', 'password_confirmation']);
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
 
-        foreach ($userData as $key => $value) {
-            $model->$key = $value;
-        }
+        $user = $this->model->fill($userData);
 
-        if ($model->save()) {
-            $this->syncGroups($model, $data);
+        if ($user->save()) {
+            $roles = isset($data['roles']) ? $data['roles'] : [];
+            $permissions = isset($data['permissions']) ? $data['permissions'] : [];
+            $user->roles()->sync($roles);
+            $user->syncPermissions($permissions);
 
-            return $model;
+            return $user;
         }
 
         return false;
@@ -51,19 +50,20 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     {
         $user = $this->model->find($data['id']);
 
-        $userData = array_except($data, ['_method', '_token', 'exit', 'groups', 'password_confirmation']);
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
 
-        if (!$userData['password']) {
+        if ($userData['password'] === '') {
             $userData = array_except($userData, 'password');
         } else {
             $userData['password'] = bcrypt($data['password']);
         }
 
-        foreach ($userData as $key => $value) {
-            $user->$key = $value;
-        }
+        $user->fill($userData);
 
-        $this->syncGroups($user, $data);
+        $roles = isset($data['roles']) ? $data['roles'] : [];
+        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
+        $user->roles()->sync($roles);
+        $user->syncPermissions($permissions);
 
         if ($user->save()) {
             return true;
@@ -85,28 +85,6 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * Sync groups.
-     *
-     * @param Model $user
-     * @param array $groups
-     *
-     * @return void
-     */
-    private function syncGroups($user, $data)
-    {
-        if (!isset($data['groups'])) {
-            return;
-        }
-        $array = [];
-        foreach ($data['groups'] as $id => $value) {
-            if ($value) {
-                $array[] = $id;
-            }
-        }
-        $user->groups()->sync($array);
-    }
-
-    /**
      * Update current user preferences.
      *
      * @return mixed
@@ -116,21 +94,5 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         $user = Request::user();
         $user->preferences = array_merge((array) $user->preferences, $data);
         $user->save();
-    }
-
-    /**
-     * Current user has access ?
-     *
-     * @param string|array $permissions
-     *
-     * @return bool
-     */
-    public function hasAccess($permissions)
-    {
-        if ($user = Request::user()) {
-            return $user->hasAccess($permissions);
-        }
-
-        return false;
     }
 }

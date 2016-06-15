@@ -9,6 +9,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
 
@@ -17,6 +19,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
+    use HasRoles;
     use Historable;
     use PresentableTrait;
 
@@ -32,7 +35,8 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         'first_name',
         'last_name',
         'password',
-        'permissions',
+        'activated',
+        'superuser',
         'preferences',
     ];
 
@@ -52,7 +56,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      * @var array
      */
     protected $casts = [
-        'permissions' => 'array',
         'preferences' => 'array',
     ];
 
@@ -66,85 +69,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function uri($locale = null)
     {
         return '/';
-    }
-
-    /**
-     * Returns an array of merged permissions for each group the user is in.
-     *
-     * @return array
-     */
-    public function getMergedPermissions()
-    {
-        if (!$this->mergedPermissions) {
-            $permissions = [];
-            foreach ($this->groups as $group) {
-                $permissions = array_merge($permissions, (array) $group->permissions);
-            }
-            $this->mergedPermissions = array_merge($permissions, (array) $this->permissions);
-        }
-
-        return $this->mergedPermissions;
-    }
-
-    /**
-     * See if a user has access to the passed permission(s).
-     *
-     * @param string|array $permissions
-     *
-     * @return bool
-     */
-    public function hasAccess($permissions)
-    {
-        if ($this->superuser) {
-            return true;
-        }
-
-        return $this->hasPermission($permissions);
-    }
-
-    /**
-     * See if a user has access to the passed permission(s).
-     *
-     * @param string|array $permissions
-     *
-     * @return bool
-     */
-    public function hasPermission($permissions)
-    {
-        $mergedPermissions = $this->getMergedPermissions();
-        if (!is_array($permissions)) {
-            $permissions = (array) $permissions;
-        }
-        foreach ($permissions as $permission) {
-            $matched = false;
-            foreach ($mergedPermissions as $mergedPermission => $value) {
-                if ($permission == $mergedPermission and $mergedPermissions[$permission] == 1) {
-                    $matched = true;
-                    break;
-                }
-            }
-            if ($matched === false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Is the user in group ?
-     *
-     * @param [type] $group [description]
-     *
-     * @return [type] [description]
-     */
-    public function hasRole($group)
-    {
-        if ($this->superuser) {
-            return true;
-        }
-
-        return in_array($group, $this->groups->pluck('name')->all());
     }
 
     /**
@@ -173,12 +97,44 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     }
 
     /**
-     * One user has many groups.
+     * Check if the user is a superuser.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return bool
      */
-    public function groups()
+    public function isSuperUser()
     {
-        return $this->belongsToMany('TypiCMS\Modules\Groups\Models\Group');
+        return (bool) $this->superuser;
+    }
+
+    /**
+     * Sync roles.
+     *
+     * @param array $permissions
+     *
+     * @return null
+     */
+    public function syncRoles(array $roles)
+    {
+        $permissionIds = [];
+        foreach ($permissions as $name) {
+            $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
+        }
+        $this->permissions()->sync($permissionIds);
+    }
+
+    /**
+     * Sync permissions.
+     *
+     * @param array $permissions
+     *
+     * @return null
+     */
+    public function syncPermissions(array $permissions)
+    {
+        $permissionIds = [];
+        foreach ($permissions as $name) {
+            $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
+        }
+        $this->permissions()->sync($permissionIds);
     }
 }

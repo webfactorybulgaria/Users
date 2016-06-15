@@ -1,8 +1,3 @@
-@section('js')
-    <script src="{{ asset('js/admin/checkboxes-permissions.js') }}"></script>
-@endsection
-
-
 @include('core::admin._buttons-form')
 
 {!! BootForm::hidden('id') !!}
@@ -31,17 +26,20 @@
     </div>
 </div>
 
-{!! BootForm::hidden('activated')->value(0) !!}
-{!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
-
-@if ($groups = Groups::all() and $groups->count())
 <div class="form-group">
-    <label>@lang('validation.attributes.groups')</label>
-    @foreach ($groups as $group)
+{!! BootForm::hidden('activated')->value(0) !!}
+{!! BootForm::hidden('superuser')->value(0) !!}
+{!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
+{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
+</div>
+
+@if ($roles = Roles::all() and $roles->count())
+<div class="form-group">
+    <label>@lang('validation.attributes.roles')</label>
+    @foreach ($roles as $role)
     <div class="checkbox">
         <label>
-            {!! BootForm::hidden('groups[' . $group->id . ']')->value(0) !!}
-            <input type="checkbox" name="groups[{{ $group->id }}]" value="1" @if (isset($selectedGroups[$group->id]))checked="checked"@endif> {{ $group->name }}
+            <input type="checkbox" name="roles[]" value="{{ $role->id }}" @if (in_array($role->id, $selectedRoles))checked="checked"@endif> {{ $role->name }}
         </label>
     </div>
     @endforeach
@@ -49,7 +47,4 @@
 @endif
 
 <label>@lang('users::global.User permissions')</label>
-{!! BootForm::hidden('superuser')->value(0) !!}
-{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
-
 @include('core::admin._permissions-form')
