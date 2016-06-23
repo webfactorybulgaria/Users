@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Users\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use TypiCMS;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,15 @@ class RouteServiceProvider extends ServiceProvider
     public function map(Router $router)
     {
         $router->group(['namespace' => $this->namespace], function (Router $router) {
+
+            $router->group(['middleware' => 'web'], function (Router $router) {
+                foreach (config('translatable.locales') as $lang) {
+                    $uri = trim(TypiCMS::homeUri($lang), '/');
+                    $router->get($uri . '/login', 'AuthController@getLogin')->name($lang . '.login');
+                    $router->post($uri . '/login', 'AuthController@postLogin');
+                }
+            });
+
             /*
              * Front office routes
              */

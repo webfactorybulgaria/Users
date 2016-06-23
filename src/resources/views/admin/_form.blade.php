@@ -34,6 +34,7 @@
 </div>
 
 @if ($roles = Roles::all() and $roles->count())
+
 <div class="form-group">
     <label>@lang('validation.attributes.roles')</label>
     @foreach ($roles as $role)
