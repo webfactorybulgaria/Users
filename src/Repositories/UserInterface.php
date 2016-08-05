@@ -2,7 +2,7 @@
 
 namespace TypiCMS\Modules\Users\Repositories;
 
-use TypiCMS\Modules\Core\Repositories\RepositoryInterface;
+use TypiCMS\Modules\Core\Custom\Repositories\RepositoryInterface;
 
 interface UserInterface extends RepositoryInterface
 {

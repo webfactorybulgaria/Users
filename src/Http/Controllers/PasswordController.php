@@ -6,9 +6,9 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Core\Facades\TypiCMS;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestEmail;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestPassword;
+use TypiCMS\Modules\Core\Custom\Facades\TypiCMS;
+use TypiCMS\Modules\Users\Custom\Http\Requests\FormRequestEmail;
+use TypiCMS\Modules\Users\Custom\Http\Requests\FormRequestPassword;
 
 class PasswordController extends Controller
 {

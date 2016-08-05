@@ -2,7 +2,7 @@
 
 namespace TypiCMS\Modules\Users\Http\Requests;
 
-use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
+use TypiCMS\Modules\Core\Custom\Http\Requests\AbstractFormRequest;
 
 class FormRequestPassword extends AbstractFormRequest
 {
