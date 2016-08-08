@@ -5,9 +5,9 @@ namespace TypiCMS\Modules\Users\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Custom\Observers\FileObserver;
-use TypiCMS\Modules\Users\Custom\Models\User;
-use TypiCMS\Modules\Users\Custom\Repositories\EloquentUser;
+use TypiCMS\Modules\Core\Shells\Observers\FileObserver;
+use TypiCMS\Modules\Users\Shells\Models\User;
+use TypiCMS\Modules\Users\Shells\Repositories\EloquentUser;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -32,7 +32,7 @@ class ModuleProvider extends ServiceProvider
 
         AliasLoader::getInstance()->alias(
             'Users',
-            'TypiCMS\Modules\Users\Custom\Facades\Facade'
+            'TypiCMS\Modules\Users\Shells\Facades\Facade'
         );
 
         // Observers
@@ -46,14 +46,14 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Users\Custom\Providers\RouteServiceProvider');
+        $app->register('TypiCMS\Modules\Users\Shells\Providers\RouteServiceProvider');
 
         /*
          * Sidebar view composer
          */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Users\Custom\Composers\SidebarViewComposer');
+        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Users\Shells\Composers\SidebarViewComposer');
 
-        $app->bind('TypiCMS\Modules\Users\Custom\Repositories\UserInterface', function (Application $app) {
+        $app->bind('TypiCMS\Modules\Users\Shells\Repositories\UserInterface', function (Application $app) {
             return new EloquentUser(new User());
         });
     }

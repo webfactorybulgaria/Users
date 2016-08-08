@@ -5,9 +5,9 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Core\Custom\Facades\TypiCMS;
-use TypiCMS\Modules\Users\Custom\Http\Requests\FormRequestRegister;
-use TypiCMS\Modules\Users\Custom\Repositories\UserInterface;
+use TypiCMS\Modules\Core\Shells\Facades\TypiCMS;
+use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequestRegister;
+use TypiCMS\Modules\Users\Shells\Repositories\UserInterface;
 
 class RegistrationController extends Controller
 {

@@ -11,8 +11,8 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
-use TypiCMS\Modules\Core\Custom\Models\Base;
-use TypiCMS\Modules\History\Custom\Traits\Historable;
+use TypiCMS\Modules\Core\Shells\Models\Base;
+use TypiCMS\Modules\History\Shells\Traits\Historable;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -23,7 +23,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use Historable;
     use PresentableTrait;
 
-    protected $presenter = 'TypiCMS\Modules\Users\Custom\Presenters\ModulePresenter';
+    protected $presenter = 'TypiCMS\Modules\Users\Shells\Presenters\ModulePresenter';
 
     /**
      * The attributes that are mass assignable.

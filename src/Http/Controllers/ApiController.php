@@ -5,9 +5,9 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Custom\Http\Controllers\BaseApiController;
-use TypiCMS\Modules\Users\Custom\Models\User;
-use TypiCMS\Modules\Users\Custom\Repositories\UserInterface as Repository;
+use TypiCMS\Modules\Core\Shells\Http\Controllers\BaseApiController;
+use TypiCMS\Modules\Users\Shells\Models\User;
+use TypiCMS\Modules\Users\Shells\Repositories\UserInterface as Repository;
 
 class ApiController extends BaseApiController
 {
@@ -51,7 +51,7 @@ class ApiController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Users\Custom\Models\User $user
+     * @param \TypiCMS\Modules\Users\Shells\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse
      */

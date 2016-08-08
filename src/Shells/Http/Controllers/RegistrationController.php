@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Users\Custom\Http\Controllers;
+namespace TypiCMS\Modules\Users\Shells\Http\Controllers;
 
 use TypiCMS\Modules\Users\Http\Controllers\RegistrationController as Base;
 

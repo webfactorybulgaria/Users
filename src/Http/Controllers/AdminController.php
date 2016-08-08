@@ -3,10 +3,10 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Custom\Http\Controllers\BaseAdminController;
-use TypiCMS\Modules\Users\Custom\Http\Requests\FormRequest;
-use TypiCMS\Modules\Users\Custom\Models\User;
-use TypiCMS\Modules\Users\Custom\Repositories\UserInterface;
+use TypiCMS\Modules\Core\Shells\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequest;
+use TypiCMS\Modules\Users\Shells\Models\User;
+use TypiCMS\Modules\Users\Shells\Repositories\UserInterface;
 
 class AdminController extends BaseAdminController
 {
@@ -46,7 +46,7 @@ class AdminController extends BaseAdminController
     /**
      * Edit form for the specified resource.
      *
-     * @param \TypiCMS\Modules\Users\Custom\Models\User $user
+     * @param \TypiCMS\Modules\Users\Shells\Models\User $user
      *
      * @return \Illuminate\View\View
      */
@@ -66,7 +66,7 @@ class AdminController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \TypiCMS\Modules\Users\Custom\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Users\Shells\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -80,8 +80,8 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Users\Custom\Models\User               $user
-     * @param \TypiCMS\Modules\Users\Custom\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Users\Shells\Models\User               $user
+     * @param \TypiCMS\Modules\Users\Shells\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

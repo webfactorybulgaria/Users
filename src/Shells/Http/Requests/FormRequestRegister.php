@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Users\Custom\Http\Requests;
+namespace TypiCMS\Modules\Users\Shells\Http\Requests;
 
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister as Base;
 

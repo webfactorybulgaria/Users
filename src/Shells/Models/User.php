@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Users\Custom\Models;
+namespace TypiCMS\Modules\Users\Shells\Models;
 
 use TypiCMS\Modules\Users\Models\User as Base;
 

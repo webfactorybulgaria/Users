@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Users\Custom\Facades;
+namespace TypiCMS\Modules\Users\Shells\Facades;
 
 use TypiCMS\Modules\Users\Facades\Facade as Base;
 
