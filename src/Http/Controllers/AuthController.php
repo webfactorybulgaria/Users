@@ -6,8 +6,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
-use TypiCMS\Modules\Users\Models\User;
+use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequestLogin;
+use TypiCMS\Modules\Users\Shells\Models\User;
 
 class AuthController extends Controller
 {

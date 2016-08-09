@@ -15,7 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'TypiCMS\Modules\Users\Http\Controllers';
+    protected $namespace = 'TypiCMS\Modules\Users\Shells\Http\Controllers';
 
     /**
      * Define the routes for the application.
