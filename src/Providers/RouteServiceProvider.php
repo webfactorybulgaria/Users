@@ -60,8 +60,23 @@ class RouteServiceProvider extends ServiceProvider
                 // Set new password
                 $router->get('changepassword/{token}', 'PasswordController@getReset')->name('changepassword');
                 $router->post('changepassword/{token}', 'PasswordController@postReset');
+
             });
 
+            /*
+             * User's profile routes
+             */
+
+            if(config('typicms.users.advanced')) {
+                $router->group(['middleware' => 'auth'], function (Router $router) {
+                    $router->get('profile', 'ProfileController@show')->name('show-profile');
+                    $router->get('profile/address/create', 'ProfileController@createAddress')->name('createAddress-profile');
+                    $router->post('profile/address', 'ProfileController@storeAddress')->name('storeAddress-profile');
+                    $router->get('profile/address/{address}/edit', 'ProfileController@editAddress')->name('editAddress-profile');
+                    $router->put('profile/address/{address}', 'ProfileController@updateAddress')->name('updateAddress-profile');
+                });
+            }
+  
             /*
              * Admin routes
              */

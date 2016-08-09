@@ -13,10 +13,6 @@ class ModuleProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php', 'typicms.users'
-        );
-
         $modules = $this->app['config']['typicms']['modules'];
         $this->app['config']->set('typicms.modules', array_merge(['users' => []], $modules));
 
@@ -43,6 +39,10 @@ class ModuleProvider extends ServiceProvider
     {
         $app = $this->app;
 
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/config.php', 'typicms.users'
+        );
+        
         /*
          * Register route service provider
          */

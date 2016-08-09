@@ -13,6 +13,8 @@ use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Users\Models\UserAddress;
+use Amsgames\LaravelShop\Traits\ShopUserTrait;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -22,6 +24,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use HasRoles;
     use Historable;
     use PresentableTrait;
+    use ShopUserTrait;
 
     protected $presenter = 'TypiCMS\Modules\Users\Presenters\ModulePresenter';
 
@@ -136,5 +139,15 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
         }
         $this->permissions()->sync($permissionIds);
+    }
+
+    /**
+     * User has many addresses.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function addresses()
+    {
+        return $this->hasMany('TypiCMS\Modules\Users\Models\UserAddress');
     }
 }
