@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Users\Shells\Repositories;
 
-use TypiCMS\Modules\Users\Repositories\EloquentUser as Base;
+use TypiCMS\Modules\Users\Repositories\EloquentUser as BaseClass;
 
-class EloquentUser extends Base implements UserInterface
+class EloquentUser extends BaseClass implements UserInterface
 {
 
 }

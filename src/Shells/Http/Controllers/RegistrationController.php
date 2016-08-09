@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Users\Shells\Http\Controllers;
 
-use TypiCMS\Modules\Users\Http\Controllers\RegistrationController as Base;
+use TypiCMS\Modules\Users\Http\Controllers\RegistrationController as BaseClass;
 
-class RegistrationController extends Base
+class RegistrationController extends BaseClass
 {
 
 }

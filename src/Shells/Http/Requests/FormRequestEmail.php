@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Users\Shells\Http\Requests;
 
-use TypiCMS\Modules\Users\Http\Requests\FormRequestEmail as Base;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestEmail as BaseClass;
 
-class FormRequestEmail extends Base
+class FormRequestEmail extends BaseClass
 {
 
 }
