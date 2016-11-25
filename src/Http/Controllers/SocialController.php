@@ -16,7 +16,7 @@ class SocialController extends Controller
 
     public function getSocialRedirect( $provider )
     {
-        if (!config()->get('auth.social_users')) return redirect(route('login'));
+        if (!config()->get('auth.social_users')) return redirect(route(config('app.locale') . '.login'));
 
         $providerKey = Config::get('services.' . $provider);
 
@@ -33,11 +33,11 @@ class SocialController extends Controller
 
     public function getSocialHandle( $provider )
     {
-        if (!config()->get('auth.social_users')) return redirect(route('login'));
+        if (!config()->get('auth.social_users')) return redirect(route(config('app.locale') . '.login'));
 
         if (Input::get('denied') != '') {
 
-            return redirect()->to(route('login'))
+            return redirect()->to(route(config('app.locale') . '.login'))
                     ->withErrors([
                         'email' => trans('users::global.You did not share your profile data with our social app.'),
                     ]);
@@ -108,7 +108,7 @@ class SocialController extends Controller
 
                 if (!$newSocialUser->superuser && !config()->get('auth.social_guests')) {
                     return redirect()
-                        ->route('login')
+                        ->route(config('app.locale') . '.login')
                         ->withErrors([
                             'email' => trans('users::global.User does not exist'),
                         ]);

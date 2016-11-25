@@ -82,8 +82,10 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Social routes
              */
-            $router->get('/social/redirect/{provider}', 'SocialController@getSocialRedirect')->name('social.redirect');
-            $router->get('/social/handle/{provider}', 'SocialController@getSocialHandle')->name('social.handle');
+            if (config()->get('auth.social_users')) {
+                $router->get('/social/redirect/{provider}', 'SocialController@getSocialRedirect')->name('social.redirect');
+                $router->get('/social/handle/{provider}', 'SocialController@getSocialHandle')->name('social.handle');                
+            }
 
         });
     }
