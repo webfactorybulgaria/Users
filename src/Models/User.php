@@ -137,4 +137,13 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         }
         $this->permissions()->sync($permissionIds);
     }
+
+    /**
+     * Social Relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function social() {
+        return $this->hasOne('TypiCMS\Modules\Users\Shells\Models\Social');
+    }
 }

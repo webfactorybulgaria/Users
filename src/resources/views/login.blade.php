@@ -42,6 +42,14 @@
             </span>
         </div>
 
+        @if (config()->get('auth.social_users'))
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">Google+</a>
+            </div>
+        </div>
+        @endif
+
     {!! BootForm::close() !!}
 
 </div>
