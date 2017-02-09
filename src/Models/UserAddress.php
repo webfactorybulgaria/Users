@@ -2,8 +2,8 @@
 
 namespace TypiCMS\Modules\Users\Models;
 
-use TypiCMS\Modules\Core\Models\Base;
-use TypiCMS\Modules\Users\Models\User;
+use TypiCMS\Modules\Core\Shells\Models\Base;
+//use TypiCMS\Modules\Users\Shells\Models\User;
 
 class UserAddress extends Base
 {
@@ -28,6 +28,6 @@ class UserAddress extends Base
      */
     public function user()
     {
-        return $this->belongsTo('TypiCMS\Modules\Users\Models\User');
+        return $this->belongsTo('TypiCMS\Modules\Users\Shells\Models\User');
     }
 }

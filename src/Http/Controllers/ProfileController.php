@@ -3,8 +3,8 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestAddress;
-use TypiCMS\Modules\Users\Models\UserAddress;
+use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequestAddress;
+use TypiCMS\Modules\Users\Shells\Models\UserAddress;
 use Auth;
 
 class ProfileController extends Controller
@@ -68,7 +68,7 @@ class ProfileController extends Controller
             $address->create($data);
         }
 
-        return redirect('profile');
+        return redirect()->back();
     }
 
     /**

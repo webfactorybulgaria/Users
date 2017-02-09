@@ -17,8 +17,10 @@
     user's profile page
 
     <h2>User addresses</h2>
-    @if($user->addresses)
+    @if($user->addresses->count())
         @include('users::public._address-list', ['addresses' => $user->addresses])
+    @else
+    	@lang('db.No records yet.')
     @endif
     <a href="{{ route('createAddress-profile') }}">@lang('db.Add new address')</a>
 </div>

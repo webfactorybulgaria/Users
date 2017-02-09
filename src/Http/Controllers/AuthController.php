@@ -87,7 +87,7 @@ class AuthController extends Controller
             return $this->authenticated($request, Auth::user());
         }
 
-        return redirect()->intended(url('/'));
+        return redirect()->intended(route(config('app.locale') . '.shop.checkout'));
     }
 
     /**

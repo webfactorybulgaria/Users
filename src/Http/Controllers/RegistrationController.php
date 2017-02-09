@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Core\Shells\Facades\TypiCMS;
 use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Shells\Repositories\UserInterface;
+use Auth;
 
 class RegistrationController extends Controller
 {
@@ -46,16 +47,21 @@ class RegistrationController extends Controller
      */
     public function postRegister(FormRequestRegister $request, Mailer $mailer)
     {
-        $user = $this->repository->create($request->all());
+        $data = $request->all();
+
+        $data['activated'] = true;
+        $user = $this->repository->create($data);
 
         $mailer->send('users::emails.welcome', compact('user'), function (Message $message) use ($user) {
             $subject = '['.TypiCMS::title().'] '.trans('users::global.Welcome');
             $message->to($user->email)->subject($subject);
         });
 
+        Auth::login($user);
+
         return redirect()
             ->back()
-            ->with('status', trans('users::global.Your account has been created, check your email for the confirmation link'));
+            ->with('status', trans('users::global.Your account has been created'));
     }
 
     /**
