@@ -14,7 +14,6 @@ use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Shells\Models\Base;
 use TypiCMS\Modules\History\Shells\Traits\Historable;
 use TypiCMS\Modules\Users\Shells\Models\UserAddress;
-use Amsgames\LaravelShop\Traits\ShopUserTrait;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -24,7 +23,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use HasRoles;
     use Historable;
     use PresentableTrait;
-    use ShopUserTrait;
 
     protected $presenter = 'TypiCMS\Modules\Users\Shells\Presenters\ModulePresenter';
 
