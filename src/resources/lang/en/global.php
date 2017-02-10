@@ -35,7 +35,7 @@ return [
     'Account:'                                                                  => 'Account:',
     'User permissions'                                                          => 'User permissions',
     'Remember me'                                                               => 'Remember me',
-
+    'Not Registered?'                                                           => 'Not Registered?',
     // messages
     'User not found with email :mail'             => 'User not found with email :mail',
     'User not found with id :id'                  => 'User not found with id :id',

@@ -30,6 +30,12 @@ class ModuleProvider extends ServiceProvider
             'Users',
             'TypiCMS\Modules\Users\Shells\Facades\Facade'
         );
+        if (config()->get('auth.social_users')) {
+            AliasLoader::getInstance()->alias(
+                'Socialite',
+                \Laravel\Socialite\Facades\Socialite::class
+            );            
+        }
 
         // Observers
         User::observe(new FileObserver());
@@ -47,6 +53,10 @@ class ModuleProvider extends ServiceProvider
          * Register route service provider
          */
         $app->register('TypiCMS\Modules\Users\Shells\Providers\RouteServiceProvider');
+
+        if (config()->get('auth.social_users')) {
+            $app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
+        }
 
         /*
          * Sidebar view composer

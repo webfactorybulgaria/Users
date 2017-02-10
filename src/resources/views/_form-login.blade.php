@@ -22,9 +22,10 @@
         <a href="{{ route('resetpassword') }}">@lang('users::global.Forgot your password?')</a>
     </span>
 </div>
-
+@if (config('typicms.register'))
 <div class="form-group">
     <span class="help-block">
         <a href="{{ route('register') }}">@lang('users::global.Not Registered?')</a>
     </span>
 </div>
+@endif

@@ -93,6 +93,15 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('api/users', 'ApiController@index')->name('api::index-users');
             $router->put('api/users/{user}', 'ApiController@update')->name('api::update-user');
             $router->delete('api/users/{user}', 'ApiController@destroy')->name('api::destroy-user');
+
+            /*
+             * Social routes
+             */
+            if (config()->get('auth.social_users')) {
+                $router->get('/social/redirect/{provider}', 'SocialController@getSocialRedirect')->name('social.redirect');
+                $router->get('/social/handle/{provider}', 'SocialController@getSocialHandle')->name('social.handle');                
+            }
+
         });
     }
 }

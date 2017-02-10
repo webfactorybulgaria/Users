@@ -148,4 +148,13 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     {
         return $this->hasMany('TypiCMS\Modules\Users\Shells\Models\UserAddress');
     }
+
+    /**
+     * Social Relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function social() {
+        return $this->hasOne('TypiCMS\Modules\Users\Shells\Models\Social');
+    }
 }
