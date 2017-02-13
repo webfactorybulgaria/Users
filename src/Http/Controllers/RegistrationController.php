@@ -49,7 +49,12 @@ class RegistrationController extends Controller
     {
         $data = $request->all();
 
-        $data['activated'] = true;
+        if (config('auth.skip_activation'))
+            $data['activated'] = true;
+
+        if (config('auth.skip_activation') && empty($data['password']))
+            $data['password'] = str_random(16);
+
         $user = $this->repository->create($data);
 
         $mailer->send('users::emails.welcome', compact('user'), function (Message $message) use ($user) {
@@ -57,11 +62,33 @@ class RegistrationController extends Controller
             $message->to($user->email)->subject($subject);
         });
 
-        Auth::login($user);
+        if (config('auth.skip_activation'))
+            Auth::login($user);
 
-        return redirect()
-            ->back()
-            ->with('status', trans('users::global.Your account has been created'));
+        $statusMsg = trans( config('auth.skip_activation') ? 
+                                        'users::global.Your account has been created' : 
+                                        'users::global.Your account has been created, check your email for the confirmation link'
+                                        );
+        if ($request->ajax()) {
+            return response()->json($this->ajaxRegisterSuccessResponse($statusMsg));
+        } else {
+            return redirect()
+                ->back()
+                ->with('status', $statusMsg);
+        }
+    }
+
+    /**
+     * Default response for successful registration through ajax
+     *
+     * @return Array
+     */
+    protected function ajaxRegisterSuccessResponse($statusMsg)
+    {
+        return [ 
+                    'registered' => true,
+                    'statusMsg' => $statusMsg
+                ];
     }
 
     /**

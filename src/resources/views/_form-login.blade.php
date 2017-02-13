@@ -1,7 +1,5 @@
 @include('core::admin._message', ['closable' => false])
 
-<h1>@lang('users::global.Log in')</h1>
-
 <div class="form-group">
     {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
 </div>

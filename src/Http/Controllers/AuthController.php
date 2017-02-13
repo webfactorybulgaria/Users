@@ -62,13 +62,19 @@ class AuthController extends Controller
         } else {
             $message = trans('users::global.Wrong password, try again');
         }
-
-        return redirect()
-            ->route('login')
-            ->withInput($request->only('email', 'remember'))
-            ->withErrors([
-                'email' => $message,
+        if ($request->ajax()) {
+            return response()->json([
+                'authenticated' => false,
+                'message' => $message
             ]);
+        } else {
+            return redirect()
+                ->route('login')
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors([
+                    'email' => $message,
+                ]);
+        }
     }
 
     /**
@@ -86,8 +92,21 @@ class AuthController extends Controller
         if (method_exists($this, 'authenticated')) {
             return $this->authenticated($request, Auth::user());
         }
+        if ($request->ajax()) {
+            return response()->json($this->ajaxLoginSuccessResponse());
+        } else {
+            return redirect()->intended(url('/'));
+        }
+    }
 
-        return redirect()->intended(url('/'));
+    /**
+     * Default response for successful login through ajax
+     *
+     * @return Array
+     */
+    protected function ajaxLoginSuccessResponse()
+    {
+        return [ 'authenticated' => true ];
     }
 
     /**

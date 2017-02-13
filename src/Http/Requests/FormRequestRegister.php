@@ -12,8 +12,8 @@ class FormRequestRegister extends AbstractFormRequest
             'email'                 => 'required|email|max:255|unique:users',
             'first_name'            => 'required|max:255',
             'last_name'             => 'required|max:255',
-            'password'              => 'required|min:8|max:255|confirmed',
-            'password_confirmation' => 'required',
+            'password'              => config('auth.optional_password') ? 'min:8|max:255' : 'required|min:8|max:255|confirmed',
+            'password_confirmation' => config('auth.optional_password') ? '' : 'required',
         ];
 
         return $rules;

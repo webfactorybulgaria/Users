@@ -17,6 +17,7 @@
 
 
     {!! BootForm::open() !!}
+        <h1>@lang('users::global.Register')</h1>
 
         @include('users::_form-register')
 

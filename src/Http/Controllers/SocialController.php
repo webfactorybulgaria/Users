@@ -21,9 +21,11 @@ class SocialController extends Controller
         $providerKey = Config::get('services.' . $provider);
 
         if (empty($providerKey)) {
-
-            return view('pages.status')
-                ->with('error','No such provider');
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'global' => 'No such provider'
+                ]);
 
         }
 

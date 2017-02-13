@@ -16,6 +16,9 @@
 <div id="login" class="container-login container-xs-center">
 
 {!! BootForm::open() !!}
+
+    <h1>@lang('users::global.Log in')</h1>
+
     @include('users::_form-login')
 
     @if (config()->get('auth.social_users'))
