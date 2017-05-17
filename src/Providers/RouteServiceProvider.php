@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Users\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 use TypiCMS;
+use TypiCMS\Modules\Core\Shells\Providers\BaseRouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -76,7 +76,7 @@ class RouteServiceProvider extends ServiceProvider
                     $router->put('profile/address/{address}', 'ProfileController@updateAddress')->name('updateAddress-profile');
                 });
             }
-  
+
             /*
              * Admin routes
              */
@@ -99,7 +99,7 @@ class RouteServiceProvider extends ServiceProvider
              */
             if (config()->get('auth.social_users')) {
                 $router->get('/social/redirect/{provider}', 'SocialController@getSocialRedirect')->name('social.redirect');
-                $router->get('/social/handle/{provider}', 'SocialController@getSocialHandle')->name('social.handle');                
+                $router->get('/social/handle/{provider}', 'SocialController@getSocialHandle')->name('social.handle');
             }
 
         });

@@ -1,10 +1,11 @@
 @foreach($addresses as $address)
 <div class="row">
-    country: {{$address->country}}<br>
-    city: {{$address->city}}<br>
-    address: {{$address->address}}<br>
-    address2: {{$address->address2}}<br>
-    postcode: {{$address->postcode}}<br>
+    {{$address->first_name}} {{$address->last_name}}<br>
+    {{$address->address}}<br>
+    {{$address->address2}}<br>
+    {{$address->city}} {{$address->state}} {{$address->postcode}}<br>
+    {{$address->country}}<br>
+    {{$address->phone}}<br>
     last updated: {{$address->updated_at}}<br>
     <a href="{{ route('editAddress-profile', $address->id) }}">Edit</a>
 </div>

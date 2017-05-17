@@ -14,11 +14,16 @@ class UserAddress extends Base
      */
     protected $fillable = [
         'user_id',
+        'first_name',
+        'last_name',
+        'company',
         'country',
+        'state',
         'city',
         'address',
         'address2',
-        'postcode'
+        'postcode',
+        'phone'
     ];
 
     /**

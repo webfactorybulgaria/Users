@@ -49,8 +49,12 @@ class ProfileController extends Controller
      */
     public function editAddress(UserAddress $address)
     {
-        return view('users::public.edit-profile')
+        $user = Auth::user();
+
+        if ($user && ($user->id == $address->user_id)) {
+            return view('users::public.edit-profile')
                 ->with(['model' => $address]);
+        }
     }
 
     /**
@@ -79,7 +83,7 @@ class ProfileController extends Controller
      */
     public function updateAddress(UserAddress $address, FormRequestAddress $request)
     {
-        if ($request->user()) {
+        if ($request->user() && ($request->user()->id == $address->user_id)) {
             $address->update($request->all());
         }
 
