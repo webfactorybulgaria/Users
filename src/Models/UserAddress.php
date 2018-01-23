@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Users\Models;
 
 use TypiCMS\Modules\Core\Shells\Models\Base;
-//use TypiCMS\Modules\Users\Shells\Models\User;
 
 class UserAddress extends Base
 {
@@ -13,26 +12,24 @@ class UserAddress extends Base
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'first_name',
-        'last_name',
-        'company',
-        'country',
-        'state',
-        'city',
+        'contact_name',
+        'phone',
         'address',
         'address2',
         'postcode',
-        'phone'
+        'city',
+        'state',
+        'country',
+        'details',
     ];
 
     /**
-     * User Address belongs to user.
+     * Address belongs to user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function user()
     {
-        return $this->belongsTo('TypiCMS\Modules\Users\Shells\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace TypiCMS\Modules\Users\Providers;
 
-use Illuminate\Routing\Router;
 use TypiCMS;
+use Illuminate\Routing\Router;
 use TypiCMS\Modules\Core\Shells\Providers\BaseRouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -63,17 +63,20 @@ class RouteServiceProvider extends ServiceProvider
 
             });
 
-            /*
-             * User's profile routes
-             */
+            if (config('typicms.users.advanced')) {
+                $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
+                    /*
+                     * User's profile routes
+                     */
+                    $router->get('profile', 'ProfileController@show')->name('profile.show');
 
-            if(config('typicms.users.advanced')) {
-                $router->group(['middleware' => 'auth'], function (Router $router) {
-                    $router->get('profile', 'ProfileController@show')->name('show-profile');
-                    $router->get('profile/address/create', 'ProfileController@createAddress')->name('createAddress-profile');
-                    $router->post('profile/address', 'ProfileController@storeAddress')->name('storeAddress-profile');
-                    $router->get('profile/address/{address}/edit', 'ProfileController@editAddress')->name('editAddress-profile');
-                    $router->put('profile/address/{address}', 'ProfileController@updateAddress')->name('updateAddress-profile');
+                    /*
+                     * Address routes
+                     */
+                    $router->post('address', 'AddressController@store')->name('address.store');
+                    $router->get('address/create', 'AddressController@create')->name('address.create');
+                    $router->put('address/{address}', 'AddressController@update')->name('address.update');
+                    $router->get('address/{address}/edit', 'AddressController@edit')->name('address.edit');
                 });
             }
 

@@ -9,7 +9,12 @@ class FormRequestAddress extends AbstractFormRequest
     public function rules()
     {
         $rules = [
-            
+            'contact_name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'postcode' => 'required',
+            'city' => 'required',
+            'country' => 'required',
         ];
 
         return $rules;

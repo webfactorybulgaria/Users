@@ -3,17 +3,17 @@
 namespace TypiCMS\Modules\Users\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Spatie\Permission\Traits\HasRoles;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Shells\Models\Base;
-use TypiCMS\Modules\History\Shells\Traits\Historable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use TypiCMS\Modules\Users\Shells\Models\UserAddress;
+use TypiCMS\Modules\History\Shells\Traits\Historable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -146,7 +146,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      */
     public function addresses()
     {
-        return $this->hasMany('TypiCMS\Modules\Users\Shells\Models\UserAddress');
+        return $this->hasMany(UserAddress::class);
     }
 
     /**

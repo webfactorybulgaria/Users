@@ -16,18 +16,22 @@ class CreateUserAddressesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('company');
-            $table->string('country');
-            $table->string('state');
-            $table->string('city');
-            $table->string('address');
-            $table->string('address2');
-            $table->string('postcode');
+            $table->string('contact_name');
             $table->string('phone');
+            $table->string('address');
+            $table->string('address2')->nullable();
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state')->nullable();
+            $table->string('country');
+            $table->string('details')->nullable();
+
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
         });
     }
 

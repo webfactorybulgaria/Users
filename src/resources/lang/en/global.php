@@ -36,6 +36,7 @@ return [
     'User permissions'                                                          => 'User permissions',
     'Remember me'                                                               => 'Remember me',
     'Not Registered?'                                                           => 'Not Registered?',
+
     // messages
     'User not found with email :mail'             => 'User not found with email :mail',
     'User not found with id :id'                  => 'User not found with id :id',
@@ -48,7 +49,10 @@ return [
     'User not found'                              => 'User not found',
     'User with this login already exists'         => 'User with this login already exists',
     'There was a problem activating this account' => 'There was a problem activating this account',
-    'User does not exist'                         => 'User does not exist',
     'You have already activated this account'     => 'You have already activated this account',
     'Your Password Reset Link'                    => 'Your Password Reset Link',
+
+    // Addresses
+    'Create Address' => 'Create Address',
+    'Edit Address' => 'Edit Address',
 ];
