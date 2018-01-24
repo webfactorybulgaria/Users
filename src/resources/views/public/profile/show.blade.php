@@ -23,7 +23,7 @@
 
                 <h2>User addresses:</h2>
                 @if($user->addresses->count())
-                    @foreach($addresses as $address)
+                    @foreach($user->addresses as $address)
                         <strong>Contact name:</strong> {{ $address->contact_name }}<br>
                         <strong>Phone:</strong> {{ $address->phone }}<br>
                         <strong>Address:</strong> {{ $address->address }}<br>

@@ -9,6 +9,8 @@ use TypiCMS\Modules\Users\Shells\Http\Requests\FormRequestAddress;
 class AddressController extends Controller
 {
     /**
+     * Show the form for creating an address.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
@@ -17,17 +19,21 @@ class AddressController extends Controller
     }
 
     /**
+     * Store an address in the database.
+     *
      * @param FormRequestAddress $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(FormRequestAddress $request)
     {
-        auth()->user()->addresses->create($request->all());
+        auth()->user()->addresses()->create($request->all());
 
         return redirect()->route('profile.show');
     }
 
     /**
+     * Show the form for editing and address.
+     *
      * @param UserAddress $address
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -39,6 +45,8 @@ class AddressController extends Controller
     }
 
     /**
+     * Update an existing address in the database.
+     *
      * @param UserAddress $address
      * @param FormRequestAddress $request
      * @return \Illuminate\Http\RedirectResponse
@@ -53,6 +61,9 @@ class AddressController extends Controller
     }
 
     /**
+     * If an user tries to edit an address that he/she
+     * does not own it will return a 404 response.
+     *
      * @param UserAddress $address
      */
     private function abortIfTheUserDoesNotOwnTheAddress(UserAddress $address)

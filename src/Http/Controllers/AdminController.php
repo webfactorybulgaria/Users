@@ -10,6 +10,11 @@ use TypiCMS\Modules\Users\Shells\Repositories\UserInterface;
 
 class AdminController extends BaseAdminController
 {
+    /**
+     * AdminController constructor.
+     *
+     * @param UserInterface $user
+     */
     public function __construct(UserInterface $user)
     {
         parent::__construct($user);
